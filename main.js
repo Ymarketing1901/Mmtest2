@@ -1,5 +1,4 @@
 
-
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
   let selectedGrade = "1";
@@ -86,6 +85,43 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function enterBuilding(type) {
+    if (type === "home") {
+      app.innerHTML = `<h2>Player Home</h2><p>Welcome home! Your avatar is: ${selectedAvatar}</p><button onclick="renderMap()">Back</button>`;
+      return;
+    }
+    if (type === "workshop") {
+      
+    app.innerHTML = `<h2>Workshop</h2><p>Furniture Upgrades</p>`;
+    addPurchaseButton("Wallpaper", 5);
+    addPurchaseButton("Table", 10);
+    addPurchaseButton("Chair", 5);
+    const back = document.createElement("button");
+    back.textContent = "Back";
+    back.onclick = renderMap;
+    app.appendChild(back);
+    return;
+    
+      return;
+    }
+    if (type === "townhall") {
+      app.innerHTML = `<h2>Townhall</h2><p>Total Coins: ${coins}<br>Collect 200 in this land to unlock the next one!</p><button onclick="renderMap()">Back</button>`;
+      return;
+    }
+    if (type === "store") {
+      
+    app.innerHTML = `<h2>Convenience Store</h2><p>Avatar Accessories</p>`;
+    addPurchaseButton("Hat", 10);
+    addPurchaseButton("Shoes", 10);
+    addPurchaseButton("Outfit", 20);
+    const back = document.createElement("button");
+    back.textContent = "Back";
+    back.onclick = renderMap;
+    app.appendChild(back);
+    return;
+    
+      return;
+    }
+
     const file = `grade_${selectedGrade}_${type}.js`;
     const tag = document.createElement("script");
     tag.src = file;
@@ -142,3 +178,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
   renderStart();
 });
+
+  function addPurchaseButton(name, cost) {
+    const btn = document.createElement("button");
+    btn.textContent = `${name} - ${cost} coins`;
+    btn.onclick = () => {
+      if (coins >= cost) {
+        coins -= cost;
+        alert(`You bought a ${name}!`);
+      } else {
+        alert(`Not enough coins for ${name}.`);
+      }
+      document.getElementById("coinCount").textContent = coins;
+    };
+    app.appendChild(btn);
+  }
