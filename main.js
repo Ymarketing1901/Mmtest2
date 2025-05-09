@@ -3,6 +3,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   const app = document.getElementById("app");
   let selectedGrade = "1";
+  let selectedAvatar = "cat-yellow";
   let coins = 0;
   let questions = [];
   let currentQuestion = 0;
@@ -20,8 +21,48 @@ document.addEventListener("DOMContentLoaded", () => {
         <option value="5">5</option>
         <option value="6">6</option>
       </select><br><br>
-      <button onclick="startGame()">Start</button>
+      <label>Select Avatar:</label>
+      <select id="animal">
+        <option value="cat">Cat</option>
+        <option value="dog">Dog</option>
+        <option value="mouse">Mouse</option>
+      </select>
+      <select id="color">
+        <option value="yellow">Yellow</option>
+        <option value="blue">Blue</option>
+        <option value="pink">Pink</option>
+      </select>
+      <div><img id="avatarPreview" src="spritesheet.png" width="64" height="64" style="margin-top:10px;"></div>
+      <br><button onclick="startGame()">Start</button>
     `;
+
+    document.getElementById("animal").onchange = updatePreview;
+    document.getElementById("color").onchange = updatePreview;
+    updatePreview();
+  }
+
+  function updatePreview() {
+    const a = document.getElementById("animal").value;
+    const c = document.getElementById("color").value;
+    selectedAvatar = `${a}-${c}`;
+    const spriteIndex = {
+      "cat-yellow": 0,
+      "dog-yellow": 1,
+      "mouse-yellow": 2,
+      "cat-blue": 3,
+      "dog-blue": 4,
+      "mouse-blue": 5,
+      "cat-pink": 6,
+      "dog-pink": 7,
+      "mouse-pink": 8
+    }[selectedAvatar];
+    const preview = document.getElementById("avatarPreview");
+    const x = (spriteIndex % 3) * 64;
+    const y = Math.floor(spriteIndex / 3) * 64;
+    preview.style.objectFit = "none";
+    preview.style.objectPosition = `-${x}px -${y}px`;
+    preview.style.width = "64px";
+    preview.style.height = "64px";
   }
 
   window.startGame = function () {
@@ -33,6 +74,11 @@ document.addEventListener("DOMContentLoaded", () => {
     app.innerHTML = `
       <h2>Woodland Village</h2>
       <p>Coins: <span id="coinCount">${coins}</span></p>
+      <p>Avatar: ${selectedAvatar}</p>
+      <button onclick="enterBuilding('home')">Home</button>
+      <button onclick="enterBuilding('workshop')">Workshop</button>
+      <button onclick="enterBuilding('townhall')">Townhall</button>
+      <button onclick="enterBuilding('store')">Store</button>
       <button onclick="enterBuilding('hospital')">Hospital</button>
       <button onclick="enterBuilding('lab')">Science Lab</button>
       <button onclick="renderStart()">Back</button>
@@ -47,11 +93,8 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = window[`grade_${selectedGrade}_${type}`];
       questions = data.easy;
       currentQuestion = 0;
-      if (type === "hospital") {
-        renderHospitalQuestion();
-      } else {
-        renderLabQuestion();
-      }
+      if (type === "hospital") renderHospitalQuestion();
+      else renderLabQuestion();
     };
     document.body.appendChild(tag);
   }
