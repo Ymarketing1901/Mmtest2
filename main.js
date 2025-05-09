@@ -45,15 +45,9 @@ document.addEventListener("DOMContentLoaded", () => {
     const c = document.getElementById("color").value;
     selectedAvatar = `${a}-${c}`;
     const spriteIndex = {
-      "cat-yellow": 0,
-      "dog-yellow": 1,
-      "mouse-yellow": 2,
-      "cat-blue": 3,
-      "dog-blue": 4,
-      "mouse-blue": 5,
-      "cat-pink": 6,
-      "dog-pink": 7,
-      "mouse-pink": 8
+      "cat-yellow": 0, "dog-yellow": 1, "mouse-yellow": 2,
+      "cat-blue": 3, "dog-blue": 4, "mouse-blue": 5,
+      "cat-pink": 6, "dog-pink": 7, "mouse-pink": 8
     }[selectedAvatar];
     const preview = document.getElementById("avatarPreview");
     const x = (spriteIndex % 3) * 64;
@@ -74,33 +68,23 @@ document.addEventListener("DOMContentLoaded", () => {
       <h2>Woodland Village</h2>
       <p>Coins: <span id="coinCount">${coins}</span></p>
       <p>Avatar: ${selectedAvatar}</p>
-      <button onclick="enterBuilding('home')">Home</button>
-      <button onclick="enterBuilding('workshop')">Workshop</button>
-      <button onclick="enterBuilding('townhall')">Townhall</button>
-      <button onclick="enterBuilding('store')">Store</button>
-      <button onclick="enterBuilding('hospital')">Hospital</button>
-      <button onclick="enterBuilding('lab')">Science Lab</button>
-      <button onclick="renderStart()">Back</button>
     `;
   }
 
-  function enterBuilding(type) {
+  window.enterBuilding = function(type) {
     if (type === "home") {
       app.innerHTML = `<h2>Player Home</h2><p>Welcome home! Your avatar is: ${selectedAvatar}</p><button onclick="renderMap()">Back</button>`;
       return;
     }
     if (type === "workshop") {
-      
-    app.innerHTML = `<h2>Workshop</h2><p>Furniture Upgrades</p>`;
-    addPurchaseButton("Wallpaper", 5);
-    addPurchaseButton("Table", 10);
-    addPurchaseButton("Chair", 5);
-    const back = document.createElement("button");
-    back.textContent = "Back";
-    back.onclick = renderMap;
-    app.appendChild(back);
-    return;
-    
+      app.innerHTML = `<h2>Workshop</h2><p>Furniture Upgrades</p>`;
+      addPurchaseButton("Wallpaper", 5);
+      addPurchaseButton("Table", 10);
+      addPurchaseButton("Chair", 5);
+      const back = document.createElement("button");
+      back.textContent = "Back";
+      back.onclick = renderMap;
+      app.appendChild(back);
       return;
     }
     if (type === "townhall") {
@@ -108,17 +92,14 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     if (type === "store") {
-      
-    app.innerHTML = `<h2>Convenience Store</h2><p>Avatar Accessories</p>`;
-    addPurchaseButton("Hat", 10);
-    addPurchaseButton("Shoes", 10);
-    addPurchaseButton("Outfit", 20);
-    const back = document.createElement("button");
-    back.textContent = "Back";
-    back.onclick = renderMap;
-    app.appendChild(back);
-    return;
-    
+      app.innerHTML = `<h2>Convenience Store</h2><p>Avatar Accessories</p>`;
+      addPurchaseButton("Hat", 10);
+      addPurchaseButton("Shoes", 10);
+      addPurchaseButton("Outfit", 20);
+      const back = document.createElement("button");
+      back.textContent = "Back";
+      back.onclick = renderMap;
+      app.appendChild(back);
       return;
     }
 
@@ -176,9 +157,6 @@ document.addEventListener("DOMContentLoaded", () => {
     app.appendChild(submit);
   }
 
-  renderStart();
-});
-
   function addPurchaseButton(name, cost) {
     const btn = document.createElement("button");
     btn.textContent = `${name} - ${cost} coins`;
@@ -193,3 +171,6 @@ document.addEventListener("DOMContentLoaded", () => {
     };
     app.appendChild(btn);
   }
+
+  renderStart();
+});
