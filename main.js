@@ -111,7 +111,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   renderStart();
-});
 
   function renderLabQuestion() {
     if (currentQuestion >= questions.length) {
@@ -141,3 +140,5 @@ document.addEventListener("DOMContentLoaded", () => {
     backBtn.onclick = renderMap;
     app.appendChild(backBtn);
   }
+
+});
