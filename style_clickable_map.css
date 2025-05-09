@@ -1,0 +1,42 @@
+
+body {
+  font-family: 'Comic Sans MS', cursive, sans-serif;
+  background-color: #fffbe6;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#mapContainer {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: auto;
+}
+
+#map {
+  width: 100%;
+  height: auto;
+  display: block;
+  z-index: 0;
+}
+
+.building {
+  position: absolute;
+  background: rgba(255, 223, 100, 0.9);
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+.building:hover {
+  background-color: #ffd700;
+  transform: scale(1.05);
+}
+
+#app {
+  margin-top: 20px;
+  padding: 20px;
+}
